@@ -81,7 +81,7 @@ app.delete('/api/books/:id', (req, res) => {
     const idx = books.findIndex(el => el.id === id)
     if (idx !== -1) {
         books.splice(idx, 1)
-        res.json(true)
+        res.json('ok')
     } else {
         res.status(404)
         res.json('404 | страница не найдена')
