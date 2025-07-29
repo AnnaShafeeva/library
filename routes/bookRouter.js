@@ -90,4 +90,80 @@ router.get('/books/:id/download', (req, res) => {
     }
 });
 
+router.get('/ui/books', (req, res) => {
+    const { books } = stor;
+    res.render('library/index', { 
+        title: 'Список книг',
+        books: books,
+    });
+});
+
+router.get('/ui/books/:id', (req, res) => {
+    const { books } = stor;
+    const { id } = req.params;
+    const idx = books.findIndex(el => el.id === id);
+
+    if (idx !== -1) {
+        res.render('library/view', {
+        title: "Информация о книге",
+        books: books[idx],
+        })
+    } else {
+       res.redirect('/404');
+    }
+});
+
+router.get('/ui/create', (req, res) => {
+    res.render('library/create', {
+        title: 'Создать запись',
+        book: {},
+    });
+});
+
+router.post('/ui/create', bookFile.single('fileBook'), (req, res) => {
+    const { books } = stor;
+    const { title, description, authors, favorite, fileCover, fileName } = req.body;
+    const fileBook = req.file ? req.file.originalname : '';
+    const newBook = new Book(title, description, authors, favorite, fileCover, fileName, fileBook);
+    books.push(newBook);
+    res.redirect('/ui/books');
+});
+
+router.get('/ui/update/:id', (req, res) => {
+    const { books } = stor;
+    const { id } = req.params;
+    const idx = books.findIndex(el => el.id === id);
+
+    if (idx !== -1) {
+        res.render('library/update', {
+            title: 'Изменить данные о книге',
+            books: books[idx],
+         });
+    } else {
+        res.redirect('/404');
+    }
+});
+
+router.post('/ui/update/:id', (req, res) => {
+    const { books } = stor;
+    const { id } = req.params;
+    const { title, description, authors, favorite, fileCover, fileName } = req.body;
+    const idx = books.findIndex(el => el.id === id);
+
+    if (idx !== -1) {
+        books[idx] = {
+            ...books[idx],
+            title,
+            description,
+            authors,
+            favorite: favorite === 'on',
+            fileCover,
+            fileName
+        };
+        res.redirect(`/ui/books/${id}`);
+    } else {
+        res.redirect('/404');
+    }
+});
+
 module.exports = router;

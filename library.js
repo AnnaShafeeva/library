@@ -4,6 +4,9 @@ const userRouter = require('./routes/userRouter');
 
 const app = express();
 
+app.use(express.urlencoded());
+app.set("view engine", "ejs");
+
 app.use('/api', bookRouter);
 app.use('/api', userRouter);
 app.use('/public', express.static(__dirname + '/public'));

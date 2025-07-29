@@ -1,0 +1,25 @@
+<%- include('../port/layout-start', {title: title}) %>
+
+    <h1>
+        <%= title %>
+    </h1>
+
+    <div class="card">
+
+        <h3>
+            <%= book.title %>
+        </h3>
+        <p>Описание: <%= book.description %>
+        </p>
+        <p>Авторы: <%= book.authors %>
+        </p>
+        <p>Избранное: <%= book.favorite %>
+        </p>
+        <p>Обложка: <%= book.fileCover %>
+        </p>
+        <p>Файл: <%= book.fileName %>
+        </p>
+        <a href="/ui/books">Назад к списку</a>
+    </div>
+
+<%- include('../port/layout-end') %>

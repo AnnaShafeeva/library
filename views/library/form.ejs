@@ -1,0 +1,27 @@
+<form method="POST">
+    <div>
+        <label>Название:</label>
+        <input type="text" name="title" value="<%= book.title %>" required>
+    </div>
+    <div>
+        <label>Описание:</label>
+        <textarea name="description"><%= book.description %></textarea>
+    </div>
+    <div>
+        <label>Авторы:</label>
+        <input type="text" name="authors" value="<%= book.authors %>">
+    </div>
+    <div>
+        <label>Избранное:</label>
+        <input type="checkbox" name="favorite" <%=book.favorite ? 'checked' : '' %>>
+    </div>
+    <div>
+        <label>Обложка:</label>
+        <input type="text" name="fileCover" value="<%= book.fileCover %>">
+    </div>
+    <div>
+        <label>Файл книги:</label>
+        <input type="text" name="fileName" value="<%= book.fileName %>">
+    </div>
+    <button type="submit">Сохранить</button>
+</form>
